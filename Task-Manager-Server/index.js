@@ -62,14 +62,23 @@ async function run() {
     res.send(result)
   })
 
+  // Tasks
+
+  app.get('/tasks', async(req, res)=>{
+    const result = await tasks.find().toArray()
+    res.send(result)
+  })
+
   app.post(`/tasks`, async(req, res)=>{
-    const user = req.body
-    const query = {email : req.body.email} 
-    const find = await users.findOne(query)
-    if(find){
-      return res.send  ({message: 'user already exists', insertedId : null})
-    }
-    const result = await tasks.insertOne(user)
+    const task = req.body
+    const result = await tasks.insertOne(task)
+    res.send(result)
+  })
+
+  app.delete('/tasks/:id', async(req, res)=>{
+    const id = req?.params.id
+    const query = {_id : new ObjectId(id)}
+    const result = await tasks.deleteOne(query)
     res.send(result)
   })
 
