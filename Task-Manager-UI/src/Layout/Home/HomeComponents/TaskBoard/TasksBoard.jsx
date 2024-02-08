@@ -18,6 +18,7 @@ const TasksBoard = () => {
                         <th>Deadline</th>
                         <th>Priority</th>
                         <th>Action</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>

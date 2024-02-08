@@ -82,6 +82,23 @@ async function run() {
     res.send(result)
   })
 
+  app.put('/tasks/:_id', async(req, res)=>{
+    const id = req.params._id
+  const query = {_id: new ObjectId(id)}
+  const options = { upsert: true };
+  const updatedTask = req.body
+  const task = {
+    $set:{
+      title: updatedTask.title,
+      difficulty: updatedTask.difficulty,
+      date: updatedTask.date,
+      description: updatedTask.description,
+    }
+  }
+  const result = await tasks.updateOne(query, task, options)
+      res.send(result)
+})
+
 
   
     await client.db("admin").command({ ping: 1 });
