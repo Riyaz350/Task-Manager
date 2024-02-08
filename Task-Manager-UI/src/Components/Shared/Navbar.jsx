@@ -12,8 +12,8 @@ function Navbar() {
   const email = user?.email
   
   const popUp = {
-    initial:{borderColor: "#F84E4500"},
-    animate:{borderColor:'#F84E45'},
+    initial:{borderColor: "#e11d4800"},
+    animate:{borderColor:'#e11d48'},
   }
 
   const rotate = {
@@ -25,10 +25,10 @@ function Navbar() {
     initial:{y:-1000},
     animate:{y:0}
   }
-  const navClass = "text-xl  border-b-2 font-medium pr-2 p-2 transition-all duration-300  hover:bg-[#F84E45] hover:text-white rounded-t-lg "
+  const navClass = "text-xl text-white border-b-2 font-medium pr-2 p-2 transition-all duration-300  hover:bg-[#e11d48] hover:text-white rounded-t-lg "
   
   const navlinks = (
-  <motion.div initial={{borderColor: "transparent"}} animate={{}} transition={{ delay:1.6}} className="flex flex-col lg:flex-row gap-5 border-2  px-2 border-[#F84E45]">
+  <motion.div initial={{borderColor: "transparent"}} animate={{}} transition={{ delay:1.6}} className="flex flex-col lg:flex-row gap-5 border-2  px-2 border-[#e11d48]">
     <motion.div variants={popUp} initial='initial' whileInView='animate' transition={{ delay:1.8}}  className={navClass}><motion.div variants={dropDown} initial='initial' animate='animate'  transition={{duration:.5, delay:1}}><Link  href='/'>Home</Link></motion.div></motion.div>
   </motion.div>)
 
@@ -36,12 +36,12 @@ function Navbar() {
       logOut()
       axiosPublic.patch(`/users/${email}` ,  {status: 'Offline'} )
         .then(()=>{
-            refetch()
+            // refetch()
         })
     }
 
   return (
-    <motion.div variants={rotate} initial='initial' animate='animate' transition={{duration:1}} className="navbar shadow-lg">
+    <motion.div variants={rotate} initial='initial' animate='animate' transition={{duration:1}} className="navbar shadow-lg bg-black">
   <div className="navbar-start ">
     <div className="dropdown ">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden ">
@@ -51,7 +51,7 @@ function Navbar() {
        {navlinks}
       </ul>
     </div>
-    <img className="w-1/2 lg:w-1/4" alt="info-rover-logo" src="https://i.ibb.co/dDVPj7D/weather-cast-high-resolution-logo-transparent-2.png"/>
+    <img className="w-1/2 lg:w-1/4" alt="info-rover-logo" src="https://i.ibb.co/bWhKpk1/task-manager-high-resolution-logo-transparent-2.png"/>
   </div>
   <div className="navbar-center hidden lg:flex ">
     <ul className="menu p-0 menu-horizontal px-1 ">
@@ -60,10 +60,10 @@ function Navbar() {
   </div>
   <div className="navbar-end">
     {!user?
-    <Link  to='/logIn' ><motion.span initial={{backgroundColor: '#F84E4500'}} animate={{backgroundColor:'#F84E45'}} transition={{delay:2.8}} className="btn bg-[#F84E45] text-white hover:shadow-2xl hover:shadow-[#F84E45] hover:bg-[#F84E45]">Log In</motion.span></Link>:
+    <Link  to='/logIn' ><motion.span initial={{backgroundColor: '#e11d4800'}} animate={{backgroundColor:'#e11d48'}} transition={{delay:2.8}} className="btn bg-[#e11d48] text-white hover:shadow-2xl hover:shadow-[#e11d48] hover:bg-[#e11d48]">Log In</motion.span></Link>:
       <div className="flex items-center">
-        <div>Hi {user.displayName}</div>
-      <button onClick={handleLogOut} className="btn bg-[#F84E45] text-white hover:shadow-2xl hover:shadow-[#F84E45] hover:bg-[#F84E45]">LogOut</button>
+        <div className="text-white text-center mr-5">Hi <br /> {user.displayName}</div>
+      <button onClick={handleLogOut} className="btn bg-[#e11d48] text-white hover:shadow-2xl hover:shadow-[#e11d48] hover:bg-[#e11d48]">LogOut</button>
       </div>
 }
   </div>
