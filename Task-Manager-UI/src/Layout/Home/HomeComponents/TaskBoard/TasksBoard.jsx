@@ -1,10 +1,8 @@
-import React from 'react';
 import useTasks from '../../../../Hooks/useTasks';
 import TaskBoardRow from './TaskBoardRow';
 
 const TasksBoard = (filteredTasks) => {
     const [tasks] = useTasks()
-    console.log(tasks)
     return (
         <div className="lg:min-h-screen">
 

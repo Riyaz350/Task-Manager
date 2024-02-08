@@ -60,13 +60,14 @@ const CreateTask = () => {
             setFilteredTasks(filter)
         }
     }
+    const btnTask ='bg-[#e11d48] text-white hover:scale-110 hover:bg-[#e11d48]'
 
 
     return (
         <div className=' flex flex-col mt-10'>
             <div className="flex  justify-center gap-10">
                 <div>
-                    <button className="btn btnTask w-fit mx-auto " onClick={()=>document.getElementById('my_modal_4').showModal()}>Add Task</button>
+                    <button className={`btn ${btnTask} w-fit mx-auto `} onClick={()=>document.getElementById('my_modal_4').showModal()}>Add Task</button>
                     <dialog id="my_modal_4" className="modal">
                         <div className="modal-box w-11/12 max-w-5xl">
                             <div className="modal-action flex flex-col">
@@ -89,16 +90,12 @@ const CreateTask = () => {
                                                         <h1 className="text-black text-xl">Dead line:</h1>
                                                         <DatePicker className="lg:text-3xl bg-[#e11d48] text-center text-xl" selected={startDate} onChange={(date)  => setStartDate(date)} />
                                                     </div>
-
-                                                    
-                                                    
-                                                
                                                 </div>
                                             </div>
                                             <div>
                                             <textarea name="description" placeholder="Description"  className="textarea textarea-bordered h-[200px] textarea-lg w-full " ></textarea>
                                             </div>
-                                    <button type="submit" className="btnTask btn">Add Task</button>
+                                    <button type="submit" className={`${btnTask} btn`}>Add Task</button>
                                     </form>
                                     <form method="dialog" className="w-full">
                                     <button className="btn">Close</button>
@@ -113,7 +110,7 @@ const CreateTask = () => {
                 <div
                  className="">
                     <select  
-                    onChange={e=>handleFilter(e.target.value)} className="bg-[#92140c] p-2 text-[#FFF5EB] text-xl rounded-lg">
+                    onChange={e=>handleFilter(e.target.value)} className="bg-[#e11d48] p-2 text-[#FFF5EB] text-xl rounded-lg">
                         <option value="All">All</option>
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
