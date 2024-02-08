@@ -40,8 +40,8 @@ const TaskBoardRow = ({task}) => {
     }
     const handleUpdateTask = e =>{
         const day = startDate.getDate()
-    const month = startDate.getMonth()
-    const year = startDate.getFullYear()
+        const month = startDate.getMonth()
+        const year = startDate.getFullYear()
         e.preventDefault()
         const form = e.target
         const title = form.title.value
@@ -58,9 +58,14 @@ const TaskBoardRow = ({task}) => {
                     Swal.fire({position: "top-end",icon: "success", title: "Task updated", showConfirmButton: false, timer: 1500 });
                 }
         })
+    }
 
-
-
+    const handleComplete=()=>{
+        axiosPublic.patch(`/tasks/${task._id}`, {statuss:'Completed'})
+        .then(()=>{
+            refetch()
+            Swal.fire({position: "top-end",icon: "success", title: "Task Completed", showConfirmButton: false, timer: 1500 });
+        })
     }
     return (
              <tr className={`${task.difficulty == 'Low'? 'bg-blue-300 text-white' : task.difficulty == 'Medium' ? 'bg-yellow-400 text-black': 'bg-red-500 text-white'} border-2 border-black w-fit rounded-lg `}>
@@ -68,8 +73,9 @@ const TaskBoardRow = ({task}) => {
                 <th>{task.date}</th>
                 <th>{task.difficulty}</th>
                 <th className="flex gap-2">
-                    <button title="Mark As Complete" className="bg-white text-green-400 rounded-full p-2"><TiTick /></button>
-                    <button className="bg-white text-black rounded-full p-2" onClick={()=>document.getElementById(task._id).showModal()}><FaPencil /></button>
+                    <button onClick={handleComplete} title="Mark As Complete" className="bg-white text-green-400 rounded-full p-2"><TiTick /></button>
+
+                    <button title="Edit" className="bg-white text-black rounded-full p-2" onClick={()=>document.getElementById(task._id).showModal()}><FaPencil /></button>
                         <dialog id={task._id} className="modal">
                             <div className="modal-box w-11/12 max-w-5xl">
                                 <div className="modal-action flex flex-col">
@@ -113,7 +119,7 @@ const TaskBoardRow = ({task}) => {
                         </dialog>
                     <button onClick={handleDelete} title="Delete" className="bg-white text-red-500 rounded-full p-2"><BsEraser /></button>
                 </th>
-                <th>{task.status}</th>
+                <th ><h1 className={`${task.stats == 'Completed' ? 'text-green-500' : 'text-red-500'} bg-white p-1 rounded-lg w-fit`}>{task.status}</h1></th>
             </tr>
     );
 };

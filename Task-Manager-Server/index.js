@@ -99,6 +99,20 @@ async function run() {
       res.send(result)
 })
 
+app.patch('/tasks/:id',  async (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  const filter = { _id: new ObjectId(id) };
+  const updatedSubmittedAssignment = req.body;
+  const updateDoc = {
+      $set: {
+          status: updatedSubmittedAssignment.statuss
+      },
+  };
+  const result = await tasks.updateOne(filter, updateDoc);
+  res.send(result);
+})
+
 
   
     await client.db("admin").command({ ping: 1 });

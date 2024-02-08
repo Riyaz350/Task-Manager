@@ -4,7 +4,6 @@ import TaskBoardRow from './TaskBoardRow';
 
 const TasksBoard = () => {
     const [tasks,,refetch] =useTasks()
-    console.log(tasks)
     return (
         <div className="lg:min-h-screen">
 
