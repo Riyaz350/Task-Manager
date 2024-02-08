@@ -11,15 +11,15 @@ import TasksBoard from "./TaskBoard/TasksBoard";
 
 
 const CreateTask = () => {
-
+    const [tasks,,refetch] =useTasks()
     const {user} =useContext(AuthContext)
+    const [filteredTasks, setFilteredTasks] = useState(tasks)
     const axiosPublic = useAxiosPublic()
     const [startDate, setStartDate] = useState(new Date());
-    const [difficultyValue, setDifficultyValue] = useState('easy')
+    const [difficultyValue, setDifficultyValue] = useState('Low')
     const day = startDate.getDate()
     const month = startDate.getMonth()+1
     const year = startDate.getFullYear()
-    const [,,refetch] = useTasks()
 
     const handleAddPhone = e =>{
         e.preventDefault()
@@ -50,55 +50,81 @@ const CreateTask = () => {
         setDifficultyValue(difficulty)
     }
 
+    const handleFilter=(dif)=>{
+        if(dif == 'All'){
+            setFilteredTasks(tasks)
+
+            
+        }else{
+            const filter = tasks.filter(task=>task?.difficulty == dif)
+            setFilteredTasks(filter)
+        }
+    }
+
 
     return (
-        <div className=' flex flex-col'>
-        <button className="btn btnTask w-fit mx-auto " onClick={()=>document.getElementById('my_modal_4').showModal()}>Add Task</button>
-        <dialog id="my_modal_4" className="modal">
-            <div className="modal-box w-11/12 max-w-5xl">
-                <div className="modal-action flex flex-col">
-                <form  onSubmit={handleAddPhone} className="lg:space-y-10 form my-10">
-                                <div className=" md:gap-6 ">
-                                <div className="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="title"  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Title" required />
-                                </div>
-                                
-                                    <div className="lg:flex justify-around items-end gap-20 space-y-10 lg:space-y-0 mb-10">
-                                        <div className="relative text-xl lg:text-3xl lg:w-[500px] mr-auto">
-                                            <select className="bg-[#e11d48] text-[#FFDDB6] " onChange={handleDifficulty}>
-                                                <option value="Low">Low</option>
-                                                <option value="Medium">Medium</option>
-                                                <option value="High">High</option>
-                                            </select>
-                                        </div>
+        <div className=' flex flex-col mt-10'>
+            <div className="flex  justify-center gap-10">
+                <div>
+                    <button className="btn btnTask w-fit mx-auto " onClick={()=>document.getElementById('my_modal_4').showModal()}>Add Task</button>
+                    <dialog id="my_modal_4" className="modal">
+                        <div className="modal-box w-11/12 max-w-5xl">
+                            <div className="modal-action flex flex-col">
+                            <form  onSubmit={handleAddPhone} className="lg:space-y-10 form my-10">
+                                            <div className=" md:gap-6 ">
+                                            <div className="relative z-0 w-full mb-6 group">
+                                                <input type="text" name="title"  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Title" required />
+                                            </div>
+                                            
+                                                <div className="lg:flex justify-around items-end gap-20 space-y-10 lg:space-y-0 mb-10">
+                                                    <div className="relative text-xl lg:text-3xl lg:w-[500px] mr-auto">
+                                                        <select className="bg-[#e11d48] text-[#FFDDB6] " onChange={handleDifficulty}>
+                                                            <option value="Low">Low</option>
+                                                            <option value="Medium">Medium</option>
+                                                            <option value="High">High</option>
+                                                        </select>
+                                                    </div>
 
-                                        <div className="lg:w-[500px] mx-auto  text-[#FFDDB6]">
-                                            <h1 className="text-black text-xl">Dead line:</h1>
-                                            <DatePicker className="lg:text-3xl bg-[#e11d48] text-center text-xl" selected={startDate} onChange={(date)  => setStartDate(date)} />
-                                        </div>
+                                                    <div className="lg:w-[500px] mx-auto  text-[#FFDDB6]">
+                                                        <h1 className="text-black text-xl">Dead line:</h1>
+                                                        <DatePicker className="lg:text-3xl bg-[#e11d48] text-center text-xl" selected={startDate} onChange={(date)  => setStartDate(date)} />
+                                                    </div>
 
-                                        
-                                        
-                                    
-                                    </div>
-                                </div>
-                                <div>
-                                <textarea name="description" placeholder="Description"  className="textarea textarea-bordered h-[200px] textarea-lg w-full " ></textarea>
-                                </div>
-                        <button type="submit" className="btnTask btn">Add Task</button>
-                        </form>
-                        <form method="dialog" className="w-full">
-                        <button className="btn">Close</button>
+                                                    
+                                                    
+                                                
+                                                </div>
+                                            </div>
+                                            <div>
+                                            <textarea name="description" placeholder="Description"  className="textarea textarea-bordered h-[200px] textarea-lg w-full " ></textarea>
+                                            </div>
+                                    <button type="submit" className="btnTask btn">Add Task</button>
+                                    </form>
+                                    <form method="dialog" className="w-full">
+                                    <button className="btn">Close</button>
 
-                </form>
-                
+                            </form>
+                            
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
+                <div>
+                <div
+                 className="">
+                    <select  
+                    onChange={e=>handleFilter(e.target.value)} className="bg-[#92140c] p-2 text-[#FFF5EB] text-xl rounded-lg">
+                        <option value="All">All</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
                 </div>
             </div>
-        </dialog>
             <div className=" ">
-
-            <TasksBoard></TasksBoard>
-        </div>
+                <TasksBoard filteredTasks={filteredTasks}></TasksBoard>
+            </div>
 
         </div>                                                                                       
     );

@@ -2,8 +2,9 @@ import React from 'react';
 import useTasks from '../../../../Hooks/useTasks';
 import TaskBoardRow from './TaskBoardRow';
 
-const TasksBoard = () => {
-    const [tasks,,refetch] =useTasks()
+const TasksBoard = (filteredTasks) => {
+    const [tasks] = useTasks()
+    console.log(tasks)
     return (
         <div className="lg:min-h-screen">
 
@@ -24,7 +25,10 @@ const TasksBoard = () => {
                 
                 <tbody  className='w-fit'>
                 {
-                tasks.map(task =><TaskBoardRow key={task._id} task={task}></TaskBoardRow>)
+                filteredTasks.filteredTasks.length ? 
+                    filteredTasks.filteredTasks.map(task =><TaskBoardRow key={task._id} task={task}></TaskBoardRow>):
+                    tasks.map(task =><TaskBoardRow key={task._id} task={task}></TaskBoardRow>)
+                
                 }
                 </tbody>
 

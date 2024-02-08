@@ -68,7 +68,7 @@ const TaskBoardRow = ({task}) => {
         })
     }
     return (
-             <tr className={`${task.difficulty == 'Low'? 'bg-blue-300 text-white' : task.difficulty == 'Medium' ? 'bg-yellow-400 text-black': 'bg-red-500 text-white'} border-2 border-black w-fit rounded-lg `}>
+             <tr className={`${task?.difficulty == 'Low'? 'bg-blue-300' : task?.difficulty == 'Medium' ? 'bg-yellow-400': 'bg-red-500 '} border-2 border-black w-fit rounded-lg  text-white`}>
                 <th>{task.title}</th>
                 <th>{task.date}</th>
                 <th>{task.difficulty}</th>
@@ -80,46 +80,44 @@ const TaskBoardRow = ({task}) => {
                             <div className="modal-box w-11/12 max-w-5xl">
                                 <div className="modal-action flex flex-col">
                                 <form  onSubmit={handleUpdateTask} className="lg:space-y-10 form my-10">
-                                                <div className=" md:gap-6 ">
-                                                <div className="relative z-0 w-full mb-6 group">
-                                                    <input defaultValue={task.title} type="text" name="title"  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Title" required />
-                                                </div>
-                                                
-                                                    <div className="lg:flex justify-around items-end gap-20 space-y-10 lg:space-y-0 mb-10">
-                                                        <div className="relative text-xl lg:text-3xl lg:w-[500px] mr-auto">
-                                                            <select defaultValue={task.difficulty} className="bg-[#e11d48] text-[#FFDDB6] " onChange={handleDifficulty}>
-                                                                <option value="Low">Low</option>
-                                                                <option value="Medium">Medium</option>
-                                                                <option value="High">High</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div className="lg:w-[500px] mx-auto  text-[#FFDDB6]">
-                                                            <h1 className="text-black text-xl">Dead line:</h1>
-                                                            <DatePicker className="lg:text-3xl bg-[#e11d48] text-center text-xl" selected={startDate} onChange={(date)  => setStartDate(date)} />
-                                                        </div>
-
-                                                        
-                                                        
-                                                    
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <textarea  defaultValue={task.description} name="description" placeholder="Description"  className="textarea text-black textarea-bordered h-[200px] textarea-lg w-full " ></textarea>
-                                                </div>
-                                        <button type="submit" className="btnTask btn">Update Task</button>
-                                        </form>
-                                        <form method="dialog" className="w-full">
-                                        <button className="btn">Close</button>
-
-                                </form>
-                                
+                                <div className=" md:gap-6 ">
+                                <div className="relative z-0 w-full mb-6 group">
+                                    <input defaultValue={task.title} type="text" name="title"  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Title" required />
                                 </div>
+                                    <div className="lg:flex justify-around items-end gap-20 space-y-10 lg:space-y-0 mb-10">
+                                        <div className="relative text-xl lg:text-3xl lg:w-[500px] mr-auto">
+                                            <select defaultValue={task.difficulty} className="bg-[#e11d48] text-[#FFDDB6] " onChange={handleDifficulty}>
+                                                <option value="Low">Low</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="High">High</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="lg:w-[500px] mx-auto  text-[#FFDDB6]">
+                                            <h1 className="text-black text-xl">Dead line:</h1>
+                                            <DatePicker className="lg:text-3xl bg-[#e11d48] text-center text-xl" selected={startDate} onChange={(date)  => setStartDate(date)} />
+                                        </div>
+
+                                        
+                                        
+                                    
+                                    </div>
+                                </div>
+                                <div>
+                                    <textarea  defaultValue={task.description} name="description" placeholder="Description"  className="textarea text-black textarea-bordered h-[200px] textarea-lg w-full " ></textarea>
+                                </div>
+                                <button type="submit" className="btnTask btn">Update Task</button>
+                                </form>
+                                <form method="dialog" className="w-full">
+                                <button className="btn">Close</button>
+                            </form>
+                            
                             </div>
-                        </dialog>
+                        </div>
+                    </dialog>
                     <button onClick={handleDelete} title="Delete" className="bg-white text-red-500 rounded-full p-2"><BsEraser /></button>
                 </th>
-                <th ><h1 className={`${task.stats == 'Completed' ? 'text-green-500' : 'text-red-500'} bg-white p-1 rounded-lg w-fit`}>{task.status}</h1></th>
+                <th ><h1 className={`${task?.status !== 'Completed' ? 'text-red-500' : 'text-green-500' } bg-white p-1 rounded-lg w-fit`}>{task.status}</h1></th>
             </tr>
     );
 };
